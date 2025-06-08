@@ -1,0 +1,8 @@
+[
+  { "name": "Hardware", "grade": "60%" },
+  { "name": "C Programming", "grade": "89%" },
+  { "name": "Economics", "grade": "85%" },
+  { "name": "Mathematics", "grade": "95%" },
+  { "name": "Digital Logic", "grade": "55%" },
+  { "name": "Physics", "grade": "94%" }
+]

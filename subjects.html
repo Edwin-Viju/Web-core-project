@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Subjects & Grades</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      color:#0d47a1;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+     margin-bottom: 25px;
+    color: #0d47a1;
+    }
+
+  nav a {
+    margin: 0 12px;
+    color: #0d47a1;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .subject-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .subject-card {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .subject-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .grade {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fcd34d;
+    }
+  </style>
+</head>
+<body>
+
+  
+
+ <nav>
+      <a href="home.html">Home</a>
+      <a href="subjects.html">Subjects</a>
+      <a href="todo.html">To-Do List</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="timer.html">Study Timer</a>
+    </nav>
+<h1>📘 Your Subjects & Grades</h1>
+
+
+  <div class="subject-container" id="subjects"></div>
+
+  <script>
+    fetch('subjects.json')
+      .then(response => response.json())
+      .then(subjects => {
+        const container = document.getElementById('subjects');
+
+        subjects.forEach(subject => {
+          const card = document.createElement('div');
+          card.className = 'subject-card';
+          card.innerHTML = `
+            <h2>${subject.name}</h2>
+            <p class="grade">Grade: ${subject.grade}</p>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        document.getElementById('subjects').textContent = "Failed to load subjects.";
+        console.error('Error fetching JSON:', error);
+      });
+  </script>
+
+</body>
+</html>
