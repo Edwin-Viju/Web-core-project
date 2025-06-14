@@ -2,60 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Academic Calendar 2025</title>
+  <title>June 2025 Calendar</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      background: #f0f0f0;
       color: #333;
+      text-align: center;
     }
 
-     nav {
-    margin-bottom: 20px;
-  }
-  nav a {
-    margin: 0 12px;
-    color: #0d47a1;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  nav a:hover {
-    text-decoration: underline;
-  }
+    nav {
+      margin: 20px 0;
+    }
 
+    nav a {
+      margin: 0 12px;
+      color: #0d47a1;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
 
     h1 {
-      text-align: center;
       font-size: 2.5em;
-      margin: 30px 0;
+      margin-top: 30px;
       color: #4b0082;
-    }
-
-    .calendar-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      padding: 20px;
     }
 
     .month {
       background: #fff;
       border-radius: 12px;
       padding: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .month:hover {
-      transform: scale(1.02);
     }
 
     .month h2 {
-      text-align: center;
       color: #1e90ff;
       margin-bottom: 10px;
-      font-size: 1.3em;
     }
 
     .days {
@@ -86,11 +76,11 @@
     }
 
     .events {
-      margin-top: 12px;
-      font-size: 0.85em;
+      margin-top: 15px;
       background: #f1f8e9;
       padding: 10px;
       border-radius: 8px;
+      font-size: 0.9em;
     }
 
     .events ul {
@@ -104,94 +94,69 @@
   </style>
 </head>
 <body>
-  <center>
-     <nav>
-      <a href="home.html">Home</a>
-      <a href="subjects.html">Subjects</a>
-      <a href="todo.html">To-Do List</a>
-      <a href="calendar.html">Calendar</a>
-      <a href="timer.html">Study Timer</a>
-      </nav>
-</center>
 
-<h1>🗓️ Academic Calendar - 2025</h1>
-<div class="calendar-container" id="calendarContainer"></div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="subjects.html">Subjects</a>
+    <a href="todo.html">To-Do List</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="timer.html">Study Timer</a>
+  </nav>
 
-<script>
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  <h1>🗓️ June 2025</h1>
 
-  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  <div class="month">
+    <h2>June 2025</h2>
+    <div class="days" id="daysContainer"></div>
+    <div class="events">
+      <strong>Events:</strong>
+      <ul id="eventList"></ul>
+    </div>
+  </div>
 
-  const eventDays = {
-    0: {15: 'Math Assignment Due'},
-    1: {25: 'Physics Midterm'},
-    5: {5: 'Physics Exam', 13: 'CS Project'},
-    6: {1: 'Digital Logic Quiz'},
-    10: {10: 'Economics Seminar'}
-  };
+  <script>
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const totalDays = 30; // June has 30 days
+    const firstDay = new Date(2025, 5, 1).getDay(); // June is month index 5
+    const eventDays = { 5: 'Physics Exam', 13: 'CS Project' };
 
-  const container = document.getElementById('calendarContainer');
+    const daysContainer = document.getElementById("daysContainer");
+    const eventList = document.getElementById("eventList");
 
-  for (let m = 0; m < 12; m++) {
-    const firstDay = new Date(2025, m, 1).getDay();
-    const totalDays = daysInMonth[m];
-    const monthDiv = document.createElement('div');
-    monthDiv.className = 'month';
-
-    const title = document.createElement('h2');
-    title.textContent = `${months[m]} 2025`;
-    monthDiv.appendChild(title);
-
-    const dayGrid = document.createElement('div');
-    dayGrid.className = 'days';
-
+    // Add day names
     dayNames.forEach(d => {
-      const dn = document.createElement('div');
-      dn.className = 'day-name';
-      dn.textContent = d;
-      dayGrid.appendChild(dn);
+      const dayName = document.createElement("div");
+      dayName.className = "day-name";
+      dayName.textContent = d;
+      daysContainer.appendChild(dayName);
     });
 
+    // Add empty spaces before the 1st day
     for (let i = 0; i < firstDay; i++) {
-      const empty = document.createElement('div');
-      empty.className = 'day';
-      empty.textContent = '';
-      dayGrid.appendChild(empty);
+      const empty = document.createElement("div");
+      empty.className = "day";
+      empty.textContent = "";
+      daysContainer.appendChild(empty);
     }
 
+    // Add all days of June
     for (let d = 1; d <= totalDays; d++) {
-      const cell = document.createElement('div');
-      cell.className = 'day';
+      const cell = document.createElement("div");
+      cell.className = "day";
       cell.textContent = d;
-      if (eventDays[m] && eventDays[m][d]) {
-        cell.classList.add('highlight');
+      if (eventDays[d]) {
+        cell.classList.add("highlight");
+        const li = document.createElement("li");
+        li.textContent = `June ${d}: ${eventDays[d]}`;
+        eventList.appendChild(li);
       }
-      dayGrid.appendChild(cell);
+      daysContainer.appendChild(cell);
     }
-
-    monthDiv.appendChild(dayGrid);
-
-    if (eventDays[m]) {
-      const eventList = document.createElement('div');
-      eventList.className = 'events';
-      eventList.innerHTML = '<strong>Events:</strong><ul>';
-      for (let day in eventDays[m]) {
-        eventList.innerHTML += `<li>${months[m]} ${day}: ${eventDays[m][day]}</li>`;
-      }
-      eventList.innerHTML += '</ul>';
-      monthDiv.appendChild(eventList);
-    }
-
-    container.appendChild(monthDiv);
-  }
-</script>
+  </script>
 
 </body>
 </html>
+
 
 
 
